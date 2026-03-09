@@ -1,0 +1,18 @@
+[Bb]in/
+[Oo]bj/
+[Tt]est[Rr]esult*/
+[Ll]og/
+[Ll]ogs/
+.vs/
+.git/
+.vscode/
+.idea/
+
+# Editor files
+*.user
+*.suo
+*.sln.docstates
+
+# Windows/MacOS
+.DS_Store
+Thumbs.db

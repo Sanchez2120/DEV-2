@@ -51,7 +51,7 @@ export interface CreateProductDto {
   categoryId: number;
 }
 
-export interface UpdateProductDto extends CreateProductDto { }
+export type UpdateProductDto = CreateProductDto;
 
 export interface CreateCategoryDto {
   name: string;

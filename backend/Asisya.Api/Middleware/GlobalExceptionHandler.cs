@@ -32,9 +32,9 @@ public class GlobalExceptionHandler
         var (statusCode, message) = exception switch
         {
             UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "No autorizado."),
-            KeyNotFoundException         => (HttpStatusCode.NotFound,     "Recurso no encontrado."),
-            ArgumentException            => (HttpStatusCode.BadRequest,   exception.Message),
-            _                            => (HttpStatusCode.InternalServerError, "Ocurrió un error interno. Inténtalo más tarde.")
+            KeyNotFoundException => (HttpStatusCode.NotFound, "Recurso no encontrado."),
+            ArgumentException => (HttpStatusCode.BadRequest, exception.Message),
+            _ => (HttpStatusCode.InternalServerError, "Ocurrió un error interno. Inténtalo más tarde.")
         };
 
         context.Response.ContentType = "application/json";

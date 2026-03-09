@@ -52,9 +52,9 @@ public class AuthServiceTests
     public async Task LoginAsync_InvalidEmail_ThrowsUnauthorizedAccessException()
     {
         // Arrange
-        
+
         // Act & Assert
-        await Assert.ThrowsAsync<UnauthorizedAccessException>(() => 
+        await Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
             _authService.LoginAsync("wrong@test.com", "password123"));
     }
 
@@ -73,7 +73,7 @@ public class AuthServiceTests
         await _context.SaveChangesAsync();
 
         // Act & Assert
-        await Assert.ThrowsAsync<UnauthorizedAccessException>(() => 
+        await Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
             _authService.LoginAsync("test@test.com", "wrongpassword"));
     }
 }

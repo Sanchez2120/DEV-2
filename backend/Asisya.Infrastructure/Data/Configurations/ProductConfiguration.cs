@@ -26,7 +26,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.Property(p => p.ImageUrl)
             .HasMaxLength(500);
-            
+
         builder.HasIndex(p => p.Name);
     }
 }

@@ -39,7 +39,7 @@ public class EmployeeRepository : IEmployeeRepository
         var e = await _context.Employees
             .Include(e => e.Manager)
             .FirstOrDefaultAsync(e => e.Id == id);
-            
+
         if (e == null) return null;
 
         return new EmployeeDto

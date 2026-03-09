@@ -55,7 +55,7 @@ public class OrderRepository : IOrderRepository
             .Include(o => o.OrderDetails)
                 .ThenInclude(od => od.Product)
             .FirstOrDefaultAsync(o => o.Id == id);
-            
+
         if (o == null) return null;
 
         return new OrderDto

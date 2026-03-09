@@ -21,7 +21,9 @@ const loadUser = (): AuthUser | null => {
         const raw = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         if (raw && token) return JSON.parse(raw);
-    } catch { }
+    } catch {
+        // failed to parse
+    }
     return null;
 };
 
@@ -48,6 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
     const ctx = useContext(AuthContext);
     if (!ctx) throw new Error('useAuth must be used within AuthProvider');

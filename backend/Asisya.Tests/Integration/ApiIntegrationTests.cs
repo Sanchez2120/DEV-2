@@ -68,10 +68,10 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
             Email = "admin@asisya.com",
             Password = "Admin123!"
         });
-        
+
         // Assert login fue 200 OK
         Assert.Equal(HttpStatusCode.OK, loginResponse.StatusCode);
-        
+
         var authData = await loginResponse.Content.ReadFromJsonAsync<AuthResponseDto>();
         Assert.NotNull(authData?.Token);
 

@@ -31,7 +31,7 @@ public class ProductRepository : IProductRepository
         if (!string.IsNullOrWhiteSpace(query.Search))
         {
             var search = query.Search.ToLower();
-            queryable = queryable.Where(p => p.Name.ToLower().Contains(search) 
+            queryable = queryable.Where(p => p.Name.ToLower().Contains(search)
                                           || (p.Description != null && p.Description.ToLower().Contains(search)));
         }
 
@@ -73,7 +73,7 @@ public class ProductRepository : IProductRepository
         var p = await _context.Products
             .Include(x => x.Category)
             .FirstOrDefaultAsync(x => x.Id == id);
-            
+
         if (p == null) return null;
 
         return new ProductDto
@@ -125,7 +125,7 @@ public class ProductRepository : IProductRepository
         product.CategoryId = dto.CategoryId;
 
         await _context.SaveChangesAsync();
-        
+
         return await GetByIdAsync(product.Id) ?? throw new InvalidOperationException("Failed to retrieve updated product.");
     }
 
@@ -150,11 +150,11 @@ public class ProductRepository : IProductRepository
             ImageUrl = dto.ImageUrl,
             CategoryId = dto.CategoryId
         }).ToList();
-        
+
         // Use EF Core bulk AddRange
         // In PostgreSQL using Npgsql, SaveChanges() automatically batches inserts efficiently,
         // reducing round-trips for the 100,000 items. We process in chunks to avoid memory explosion.
-        
+
         int batchSize = 10000;
         for (int i = 0; i < products.Count; i += batchSize)
         {

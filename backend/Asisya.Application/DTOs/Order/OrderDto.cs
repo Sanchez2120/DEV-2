@@ -14,7 +14,7 @@ public class OrderDto
     public string? ShipperName { get; set; }
     public DateTime OrderDate { get; set; }
     public decimal Freight { get; set; }
-    
+
     public IEnumerable<OrderDetailDto> Details { get; set; } = new List<OrderDetailDto>();
 }
 

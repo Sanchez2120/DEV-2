@@ -33,12 +33,12 @@ builder.Services.AddSwaggerGen(c =>
     // Add "Authorize" button with Bearer JWT support
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name         = "Authorization",
-        Type         = SecuritySchemeType.Http,
-        Scheme       = "Bearer",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
         BearerFormat = "JWT",
-        In           = ParameterLocation.Header,
-        Description  = "Ingresa el token JWT. Ejemplo: Bearer {tu_token}"
+        In = ParameterLocation.Header,
+        Description = "Ingresa el token JWT. Ejemplo: Bearer {tu_token}"
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -61,13 +61,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer           = true,
-            ValidateAudience         = true,
-            ValidateLifetime         = true,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer              = builder.Configuration["Jwt:Issuer"],
-            ValidAudience            = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey         = new SymmetricSecurityKey(
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(
                     builder.Configuration["Jwt:SecretKey"] ?? throw new InvalidOperationException("Jwt Secret is missing.")))
         };
@@ -79,10 +79,10 @@ builder.Services.AddRateLimiter(options =>
 {
     options.AddFixedWindowLimiter("login", limiter =>
     {
-        limiter.PermitLimit         = 10;
-        limiter.Window              = TimeSpan.FromMinutes(1);
+        limiter.PermitLimit = 10;
+        limiter.Window = TimeSpan.FromMinutes(1);
         limiter.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        limiter.QueueLimit           = 2;
+        limiter.QueueLimit = 2;
     });
 
     options.RejectionStatusCode = 429; // Too Many Requests
@@ -126,7 +126,10 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     // Apply any pending migrations to create tables dynamically before seeding
-    await db.Database.MigrateAsync();
+    if (db.Database.IsRelational())
+    {
+        await db.Database.MigrateAsync();
+    }
     await DbSeeder.SeedAsync(db);
 }
 
